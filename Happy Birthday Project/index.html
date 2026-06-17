@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Cinematic Birthday Surprise | For Someone Special</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght=0,700;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --accent: #ff2d55;
+            --accent-glow: rgba(255, 45, 85, 0.5);
+            --gold: #d4af37;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --bg-dark: #0a0a0b;
+            --royal-red: #6e0000;
+            --bulb-warm: #ffde6b;
+            --bulb-glow: rgba(255, 222, 107, 0.8);
+        }
+
+        /* --- Strict Layout Fixes --- */
+        html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #0d0d11; /* Keeps transitions uniform and dark */
+    color: #ffffff;
+    font-family: system-ui, -apple-system, sans-serif;
+   /* --- THE SHAKING ELIMINATOR --- */
+    overflow-x: hidden; /* Prevents horizontal layout jumps */
+    max-width: 100vw;
+}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            perspective: 1000px;
+        }
+
+        /* --- Main Container / Page Layout --- */
+/* --- Master Structural Page Control --- */
+.page {
+    display: none !important; /* Forces inactive pages to release all screen space */
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* --- Stable, Non-Shaking Master Page Selector --- */
+/* --- Ultra-Stable, Fully Responsive Page Layout Engine --- */
+.page.active {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    min-height: 100vh; 
+    box-sizing: border-box;
+    padding: 40px 20px; 
+    position: relative;
+    overflow: hidden; /* This hard-stops elements from shaking the screen container */
+}
+
+/* Keeps content containers well-proportioned across screens */
+.page.active > div {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Keeps your photo grid starting cleanly from the top without gaps */
+#gallery-page.active {
+    justify-content: flex-start !important;
+    overflow-y: auto !important;
+}
+
+        /* --- Animations --- */
+        @keyframes floatBasketball {
+            0% {
+                transform: translateY(0) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-120vh) scale(1.4) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes neonPulse {
+            0% {
+                box-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent);
+            }
+
+            50% {
+                box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent);
+            }
+
+            100% {
+                box-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent);
+            }
+        }
+
+        @keyframes sparkle {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* --- Hero Page --- */
+        #hero-page {
+            background: radial-gradient(circle at center, #1a0a0c 0%, #050505 100%);
+        }
+
+        .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    font-weight: 900;
+    font-style: italic;
+    background: linear-gradient(to right, #fff, #ffcc00);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text; /* Add this line to clear the yellow warning */
+    -webkit-text-fill-color: transparent;
+    animation: shine 4s linear infinite;
+    margin-bottom: 0.5rem;
+}
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 3rem;
+        }
+
+        .btn-neon {
+            position: relative;
+            padding: 18px 45px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            background: transparent;
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            overflow: hidden;
+            transition: 0.5s;
+            animation: neonPulse 2s infinite;
+            z-index: 50;
+        }
+
+        .btn-neon:hover {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 50px var(--accent);
+        }
+
+        /* --- SLIDER MESSAGE CARD --- */
+        .slider-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            padding: 60px 40px;
+            border-radius: 40px;
+            border: 1px solid var(--glass-border);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+        }
+
+        .step-content {
+            display: none;
+            min-height: 120px;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInScale 0.8s forwards;
+        }
+
+        .step-content.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .step-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            margin-bottom: 30px;
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: 0.4s;
+        }
+
+        .dot.active {
+            background: var(--accent);
+            transform: scale(1.5);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* --- Celebration Page --- */
+        #celebration-page {
+            background: #000;
+            transition: background 2s ease;
+        }
+
+        #celebration-page.bright {
+            background: radial-gradient(circle at center, #2a0a0e 0%, #0a0a0b 100%);
+        }
+
+        /* --- FAIRY LIGHTS --- */
+        .fairy-lights-container {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 150px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 2s ease;
+            z-index: 5;
+        }
+
+        .wire-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: #222;
+            stroke-width: 2;
+        }
+
+        .bulb-teardrop {
+            position: absolute;
+            width: 16px;
+            height: 24px;
+            border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+            background: #444;
+            transform-origin: top center;
+            transform: translate(-50%, 0);
+            box-shadow: none;
+            transition: background 1s, box-shadow 1s;
+        }
+
+        .bright .bulb-teardrop {
+            background: radial-gradient(circle at 30% 30%, #fff, var(--bulb-warm) 60%, #b8860b);
+            box-shadow: 0 0 15px var(--bulb-glow), 0 0 30px var(--bulb-glow);
+            animation: flicker var(--d) infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        /* --- REALISTIC BALLOONS --- */
+        .balloon {
+            position: absolute;
+            bottom: -200px;
+            width: 60px;
+            height: 80px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            z-index: 100;
+            animation: balloonFloat 8s ease-in forwards;
+            display: flex;
+            justify-content: center;
+        }
+
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            width: 10px;
+            height: 6px;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            width: 1px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.3);
+            transform-origin: top;
+            animation: stringWobble 2s infinite ease-in-out;
+        }
+
+        .balloon-shine {
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            width: 15px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            filter: blur(2px);
+            transform: rotate(30deg);
+        }
+
+        @keyframes balloonFloat {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-130vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes stringWobble {
+
+            0%,
+            100% {
+                transform: rotate(-2deg);
+            }
+
+            50% {
+                transform: rotate(2deg);
+            }
+        }
+
+        /* --- Curtain Page --- */
+        .stage {
+            position: relative;
+            width: 100vw;
+            min-height: 100vh;
+            background: #000;
+            overflow-y: auto;
+        }
+
+        .curtain-panel {
+            position: absolute;
+            top: 0;
+            width: 51%;
+            height: 100%;
+            background: repeating-linear-gradient(to right, var(--royal-red), #4a0000 10%);
+            z-index: 20;
+            transition: transform 2.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
+        }
+
+        .curtain-left {
+            left: 0;
+            border-right: 4px solid var(--gold);
+        }
+
+        .curtain-right {
+            right: 0;
+            border-left: 4px solid var(--gold);
+        }
+
+        .open .curtain-left {
+            transform: translateX(-100%) skewY(-5deg);
+        }
+
+        .open .curtain-right {
+            transform: translateX(100%) skewY(5deg);
+        }
+
+        .secret-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #1a1a1a, #000);
+        }
+
+        .message-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: clamp(20px, 5vw, 50px);
+            border-radius: 30px;
+            max-width: 700px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        /* Sparkles for active elements */
+        .sparkle-particle {
+            position: absolute;
+            pointer-events: none;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff;
+            animation: sparkle 1s linear forwards;
+        }
+
+        /* --- MEMORY GALLERY FIXES --- */
+        #gallery-page {
+            background: #050505;
+            overflow-y: auto;
+            display: block;
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .gallery-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 60px;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .memory-card {
+            position: relative;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .memory-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 50px var(--accent-glow);
+            border-color: var(--accent);
+        }
+
+        .memory-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .memory-card:hover .memory-image {
+            transform: scale(1.1);
+        }
+
+        .memory-hover-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            backdrop-filter: blur(3px);
+        }
+
+        .memory-card:hover .memory-hover-overlay {
+            opacity: 1;
+        }
+
+        .hover-message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #fff;
+            text-align: center;
+            line-height: 1.4;
+            text-shadow: 0 0 15px var(--accent);
+            transform: translateY(20px);
+            transition: transform 0.5s ease;
+        }
+
+        .memory-card:hover .hover-message {
+            transform: translateY(0);
+        }
+
+        /* Sparkle over gallery */
+        .gallery-sparkle {
+            position: absolute;
+            pointer-events: none;
+            background: white;
+            border-radius: 50%;
+            animation: sparkleAnim 2s infinite;
+        }
+
+        @keyframes sparkleAnim {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+        }
+        /* BASKETBALL VIDEO PAGE */
+
+        #video-page{
+            background:#050505;
+        }
+
+        .basketball-video-wrapper{
+            max-width:900px;
+            margin:auto;
+            padding:20px;
+            border-radius:25px;
+            overflow:hidden;
+            border:2px solid var(--accent);
+            box-shadow: 0 0 30px var(--accent-glow);
+            position:relative;
+        }
+
+        .basketball-video-wrapper::before{
+            content:'';
+            position:absolute;
+            left:50%;
+            top:50%;
+            width:300px;
+            height:300px;
+            border-radius:50%;
+            border:2px solid rgba(255,255,255,.15);
+            transform: translate(-50%,-50%);
+            pointer-events: none;
+        }
+
+        .basketball-video {
+            width:100%;
+            border-radius:20px;
+            display:block;
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .memory-card {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="hero-page" class="page active">
+        <div id="particle-container" style="position: absolute; width: 100%; height: 100%; top:0; left:0; pointer-events: none;"></div>
+        <h1 class="hero-title">Happy Birthday, Yuvraj</h1>
+        <p class="hero-sub">A Cinematic Journey Created Just For You</p>
+        <button class="btn-neon" onclick="transitionTo('message-slider-page')">Open Your Gift</button>
+    </section>
+
+    <section id="message-slider-page" class="page">
+        <div id="slider-particles" style="position: absolute; width: 100%; height: 100%; top:0; left:0; pointer-events: none;"></div>
+        <div class="slider-card">
+            <div id="step-1" class="step-content active">
+                <h2 class="step-text">It's Your Special Day</h2>
+                <button class="btn-neon" onclick="nextStep(2)">Next</button>
+            </div>
+            <div id="step-2" class="step-content">
+                <h2 class="step-text">Have a look at it Sir Jii</h2>
+                <button class="btn-neon" onclick="nextStep(3)">Next</button>
+            </div>
+            <div id="step-3" class="step-content">
+                <h2 class="step-text">Ready for your surprise?</h2>
+                <button class="btn-neon" onclick="finishSlider()">Let's Go</button>
+            </div>
+            <div class="slider-dots">
+                <div id="dot-1" class="dot active"></div>
+                <div id="dot-2" class="dot"></div>
+                <div id="dot-3" class="dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="celebration-page" class="page">
+        <div class="fairy-lights-container" id="fairy-lights-container">
+            <svg class="wire-svg" preserveAspectRatio="none" viewBox="0 0 1000 150">
+                <path id="wire-path" d="M0,20 Q100,60 200,20 T400,20 T600,20 T800,20 T1000,20" />
+            </svg>
+        </div>
+        <div class="glass-container" style="background: transparent; border: none; box-shadow: none;">
+            <h2 id="celeb-hint" style="font-size: 1.5rem; margin-bottom: 30px; letter-spacing: 2px;">The Stage is Set...</h2>
+            <button id="celeb-master-btn" class="btn-neon" onclick="celebFlow()">💡 Turn On Lights</button>
+        </div>
+    </section>
+
+    <section id="curtain-page" class="page" style="padding: 0;">
+        <div class="stage" id="stage">
+            <div class="curtain-panel curtain-left"></div>
+            <div class="curtain-panel curtain-right"></div>
+            <div class="secret-content">
+                <div class="message-card" id="message-card">
+                    <h2 style="font-family: 'Dancing Script'; font-size: clamp(2rem, 5vw, 3.5rem); color: var(--accent); margin-bottom: 20px;">Dear Yuvraj,</h2>
+                    <p style="font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.8; color: rgba(255,255,255,0.8); white-space: pre-line;">
+                        Happy Birthday to youuu! 🎉
+
+                        First of all, welcome to level 24. Another year older, another year wiser… although I’m still not completely sure about the wiser part 😄
+       I just wanted to say that I genuinely hope this year brings you more smiles, more peace, and moments that make you truly happy. Life gets messy sometimes, but I hope you always remember that you deserve good things too.
+    Keep playing, keep smiling, keep being yourself, and keep making people around you happy just by being you. And also don't forget to enjoy today properly birthdays come once a year, so eating extra cake is completely legal today 🍰
+                        Happy 24th once again. I hope this year is kinder, lighter, and filled with happiness and blessings for you.
+
+                        — Mansi
+                    </p>
+                    <button class="btn-neon" style="margin-top: 40px; animation: none;" onclick="transitionTo('video-page')">🏀 Watch This First</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <<section id="video-page" class="page" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; min-height: 100vh; padding: 40px 20px; box-sizing: border-box; position: relative;">
+        <div style="max-width:800px; width:100%; display: flex; flex-direction: column; align-items: center;">
+            
+            <h2 style="font-size:3rem; margin-bottom:15px; color:var(--accent); text-align: center;">🏀 The Moment That Grabbed Attention</h2>
+            
+            <div class="basketball-video-wrapper" style="position: relative; width: 100%; max-width: 800px; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background-color: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                
+                <video id="main-birthday-video" class="basketball-video" controls autoplay muted playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                    <source src="videos/11.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+            </div>
+        </div>
+        
+        <p style="font-size:1.3rem; margin-top:25px; opacity:.8; line-height:1.8; text-align: center;">
+            Some people don't ask for attention.<br>They naturally grab it.
+        </p>
+        
+        <button class="btn-neon" style="margin-top:40px; cursor: pointer;" onclick="transitionTo('gallery-page')">📸 Best Photos</button>
+    </section>
+    <section id="gallery-page" class="page" style="padding: 40px 16px;">
+        
+        <div id="gallery-bg-elements" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></div>
+        
+        <h2 class="gallery-title" style="margin: 0 0 30px 0; font-size: 2.2rem; text-align: center; z-index: 2;">Best Photos</h2>
+        
+        <div class="gallery-grid" style="position: relative; z-index: 2; width: 100%; max-width: 1100px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; padding: 0 10px;">
+            
+            <div class="memory-card">
+                <img src="pic1.jpeg" alt="Memory" class="memory-image">
+                <div class="memory-hover-overlay">
+                    <p class="hover-message">Passion, patience, and a little bit of madness that's how champions are made🏆</p>
+                </div>
+            </div>
+            
+            <div class="memory-card">
+                <img src="pic2.jpeg" alt="Memory" class="memory-image">
+                <div class="memory-hover-overlay">
+                    <p class="hover-message">A calm mind, a happy heart, and a beautiful view. Wishing you more calm days and happy moments ahead😇✨</p>
+                </div>
+            </div>
+            
+            <div class="memory-card">
+                <img src="pic3.jpeg" alt="Memory" class="memory-image">
+                <div class="memory-hover-overlay">
+                    <p class="hover-message">Life is already difficult. Then people like you upload pictures like this. Like why are you looking so sweet in it, dude?🤭</p>
+                </div>
+            </div>
+            
+            <div class="memory-card">
+                <img src="pic4.jpeg" alt="Memory" class="memory-image">
+                <div class="memory-hover-overlay">
+                    <p class="hover-message">Scholar by achievement, cool by default. Proof that all those brain cells were actually doing something😂</p>
+                </div>
+            </div>
+            
+            <div class="memory-card">
+                <img src="pic5.jpeg" alt="Memory" class="memory-image">
+                <div class="memory-hover-overlay">
+                    <p class="hover-message">This photo has "respectfully staring" written all over it.👀🔥</p>
+                </div>
+            </div>
+            
+            <div class="memory-card">
+                <img src="pic6.jpeg" alt="Memory" class="memory-image">
+                <div class="memory-hover-overlay">
+                    <p class="hover-message">This photo is proof that the blue shirt was a very good decision. You look damn hot.🔥🫠</p>
+                </div>
+            </div>
+            
+            <div class="memory-card">
+                <img src="pic7.jpeg" alt="Memory" class="memory-image">
+                <div class="memory-hover-overlay">
+                    <p class="hover-message">I don't know why, but I find this picture ridiculously cute. The more I look at this photo, the cuter it gets.🥰🫰</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <div style="text-align: center; margin-top: 50px; padding-bottom: 40px; z-index: 2;">
+            <button class="btn-neon" onclick="location.reload()" style="padding: 12px 30px; font-weight: bold; cursor: pointer;">Replay The Magic</button>
+        </div>
+        
+    </section>
+    <audio id="birthday-audio" loop>
+        <source src="videos/blue.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+   <script>
+    // Track allocation for particle engine execution loops
+    let messageSparkleInterval;
+
+    // --- Dynamic CSS Injector for Fairy Lights ---
+    // Fix: Changed from multi-color to a unified warm aesthetic yellow glow matching the reference image
+    function injectFairyLightStyles() {
+        if (document.getElementById('fairy-lights-dynamic-css')) return;
+        const style = document.createElement('style');
+        style.id = 'fairy-lights-dynamic-css';
+        style.innerHTML = `
+            .bulb-teardrop {
+                position: absolute;
+                width: 10px; /* Made slightly sleeker to match the reference image */
+                height: 15px;
+                background: #ffb703; /* Perfect warm aesthetic yellow base */
+                border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+                transform: translate(-50%, -50%);
+                /* Layered warm neon glow styling */
+                box-shadow: 0px 2px 10px #ffb703, 
+                            0px 0px 20px #ffaa00, 
+                            0px 0px 35px rgba(255, 183, 3, 0.6);
+                animation: softAestheticGlow var(--d, 1.5s) ease-in-out infinite alternate;
+                z-index: 15;
+            }
+            
+            /* Keeps ALL bulbs matching the same uniform warm color scheme */
+            .bulb-teardrop:nth-child(2n),
+            .bulb-teardrop:nth-child(3n),
+            .bulb-teardrop:nth-child(4n),
+            .bulb-teardrop:nth-child(5n) { 
+                background: #ffb703; 
+                box-shadow: 0px 2px 10px #ffb703, 
+                            0px 0px 20px #ffaa00, 
+                            0px 0px 35px rgba(255, 183, 3, 0.6);
+            }
+            
+            /* Smooth, calm pulsing animation that mimics real decorative fairy lights */
+            @keyframes softAestheticGlow {
+                0% { 
+                    opacity: 0.4; 
+                    filter: brightness(0.8); 
+                    transform: translate(-50%, -50%) scale(0.95); 
+                }
+                100% { 
+                    opacity: 1; 
+                    filter: brightness(1.3); 
+                    transform: translate(-50%, -50%) scale(1.05); 
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    // --- Navigation Logic ---
+    function transitionTo(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const target = document.getElementById(pageId);
+        if (target) target.classList.add('active');
+
+        // Automatically pause elements if we navigate past them
+        const bdayVideo = document.getElementById('main-birthday-video');
+        if (pageId !== 'video-page' && bdayVideo) {
+            bdayVideo.pause();
+        }
+
+        // AUDIO PLAYS WHEN CURTAINS OPEN
+        if (pageId === 'curtain-page') {
+            const bdayAudio = document.getElementById('birthday-audio');
+            if (bdayAudio) {
+                bdayAudio.muted = false; 
+                bdayAudio.play().catch(err => console.log("Audio playback delayed:", err));
+            }
+
+            setTimeout(() => {
+                const stage = document.getElementById('stage');
+                if (stage) stage.classList.add('open');
+                
+                if (document.getElementById('message-card')) {
+                    startSparkles('message-card');
+                } else if (document.getElementById('sparkle-card')) {
+                    startSparkles('sparkle-card');
+                }
+            }, 1000);
+        }
+        
+        if (pageId === 'video-page') {
+            if (bdayVideo) {
+                bdayVideo.muted = false; 
+                bdayVideo.play().catch(err => console.log("Video auto play blocked:", err));
+            }
+        }
+        
+        if (pageId === 'gallery-page') {
+            const bdayAudio = document.getElementById('birthday-audio');
+            if (bdayAudio) {
+                bdayAudio.play().catch(err => console.log("Audio play failed on gallery navigation:", err));
+            }
+            if (typeof startGalleryEffects === "function") {
+                startGalleryEffects();
+            }
+        }
+    }
+
+    // --- Basketball Particles ---
+    function createBasketball(containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        const basketball = document.createElement('div');
+        basketball.style.position = 'absolute';
+        basketball.style.left = Math.random() * 100 + 'vw';
+        basketball.style.bottom = '-10vh';
+        basketball.style.zIndex = '2';
+        basketball.innerHTML = '🏀';
+        basketball.style.fontSize = (Math.random() * 25 + 15) + 'px';
+        basketball.style.animation = `floatBasketball ${Math.random() * 4 + 4}s linear forwards`;
+        
+        container.appendChild(basketball);
+        setTimeout(() => basketball.remove(), 7000);
+    }
+
+    setInterval(() => {
+        const hero = document.getElementById('hero-page');
+        if (hero && hero.classList.contains('active')) {
+            createBasketball('particle-container');
+        }
+    }, 400);
+
+    setInterval(() => {
+        const sliderPage = document.getElementById('message-slider-page');
+        if (sliderPage && sliderPage.classList.contains('active')) {
+            createBasketball('slider-particles');
+        }
+    }, 500);
+
+    // --- Slider Logic ---
+    function nextStep(step) {
+        document.querySelectorAll('.step-content').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+        
+        const targetStep = document.getElementById(`step-${step}`);
+        const targetDot = document.getElementById(`dot-${step}`);
+        
+        if (targetStep) targetStep.classList.add('active');
+        if (targetDot) targetDot.classList.add('active');
+    }
+
+    function finishSlider() {
+        transitionTo('celebration-page');
+    }
+
+    // --- Celebration Flow ---
+    let celebStep = 1;
+    function celebFlow() {
+        const btn = document.getElementById('celeb-master-btn');
+        const hint = document.getElementById('celeb-hint');
+        const page = document.getElementById('celebration-page');
+        const lights = document.getElementById('fairy-lights-container');
+
+        if (celebStep === 1) {
+            if (page) page.classList.add('bright');
+            if (lights) lights.style.opacity = '1';
+            if (hint) hint.innerText = "Music makes it better...";
+            if (btn) btn.innerText = "🎵 Play Music";
+            celebStep = 2;
+        } else if (celebStep === 2) {
+            const audio = document.getElementById("birthday-audio");
+            if (audio) {
+                audio.play().catch(err => console.log("Audio permission needed:", err));
+            }
+            if (hint) hint.innerText = "Let the colors fly!";
+            if (btn) btn.innerText = "🎈 Fly Balloons";
+            celebStep = 3;
+        } else if (celebStep === 3) {
+            spawnBalloons(document.body);
+            if (hint) hint.innerText = "Almost there...";
+            if (btn) btn.innerText = "✨ Show The Message";
+            celebStep = 4;
+        } else {
+            transitionTo('curtain-page');
+        }
+    }
+
+    // --- Realistic Balloons Logic ---
+    function spawnBalloons(targetContainer) {
+        const colorGradients = [
+            ['#ff2d55', '#800020'], ['#74b9ff', '#0984e3'],
+            ['#55efc4', '#00b894'], ['#ffeaa7', '#fdcb6e'],
+            ['#a29bfe', '#6c5ce7'], ['#ff9ff3', '#f368e0']
+        ];
+
+        const interval = setInterval(() => {
+            const b = document.createElement('div');
+            const shine = document.createElement('div');
+            b.classList.add('balloon');
+            shine.classList.add('balloon-shine');
+            
+            const gradient = colorGradients[Math.floor(Math.random() * colorGradients.length)];
+            b.style.left = Math.random() * 92 + 'vw';
+            b.style.background = `radial-gradient(circle at 70% 30%, ${gradient[0]}, ${gradient[1]})`;
+            b.style.boxShadow = `inset -10px -10px 20px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.2)`;
+            
+            b.appendChild(shine);
+            targetContainer.appendChild(b);
+            setTimeout(() => b.remove(), 8000);
+        }, 400);
+        
+        setTimeout(() => clearInterval(interval), 6000);
+    }
+
+    // --- Gallery Special Effects ---
+    // Fixes the blank space by ensuring balloon and sparkle loops hook correctly into the active layout
+    function startGalleryEffects() {
+        const container = document.getElementById('gallery-bg-elements');
+        if (!container) return;
+
+        // Clear out any old lingering elements to reset the layout space cleanly
+        container.innerHTML = '';
+
+        const balloonInterval = setInterval(() => {
+            const gallery = document.getElementById('gallery-page');
+            if (gallery && gallery.classList.contains('active')) {
+                spawnBalloons(container);
+            } else {
+                clearInterval(balloonInterval);
+            }
+        }, 8000);
+
+        const sparkleInterval = setInterval(() => {
+            const gallery = document.getElementById('gallery-page');
+            if (gallery && gallery.classList.contains('active')) {
+                const s = document.createElement('div');
+                s.classList.add('gallery-sparkle');
+                s.style.width = s.style.height = (Math.random() * 6 + 2) + 'px';
+                s.style.top = Math.random() * 100 + '%';
+                s.style.left = Math.random() * 100 + '%';
+                
+                container.appendChild(s);
+                setTimeout(() => s.remove(), 2000);
+            } else {
+                clearInterval(sparkleInterval);
+            }
+        }, 200);
+    }
+
+    // --- Sparkle Engine ---
+    function startSparkles(targetId) {
+        const card = document.getElementById(targetId);
+        if (!card) return;
+
+        messageSparkleInterval = setInterval(() => {
+            const curtain = document.getElementById('curtain-page');
+            if (curtain && curtain.classList.contains('active')) {
+                const s = document.createElement('div');
+                s.classList.add('sparkle-particle');
+                s.style.width = s.style.height = (Math.random() * 4 + 2) + 'px';
+                s.style.top = Math.random() * 100 + '%';
+                s.style.left = Math.random() * 100 + '%';
+                
+                card.appendChild(s);
+                setTimeout(() => s.remove(), 1000);
+            } else {
+                clearInterval(messageSparkleInterval);
+            }
+        }, 150);
+    }
+
+    // --- Fairy Lights Placement Engine ---
+    function initFairyLights() {
+        const container = document.getElementById('fairy-lights-container');
+        const path = document.getElementById('wire-path');
+        if (!path || !container) return;
+        
+        const pathLength = path.getTotalLength();
+        const bulbCount = 25;
+
+        // Clear existing bulbs to prevent endless stacking
+        container.querySelectorAll('.bulb-teardrop').forEach(b => b.remove());
+
+        for (let i = 0; i <= bulbCount; i++) {
+            const distance = (i / bulbCount) * pathLength;
+            const point = path.getPointAtLength(distance);
+            const bulb = document.createElement('div');
+            bulb.classList.add('bulb-teardrop');
+            
+            // Map coordinates cleanly onto the wire string
+            bulb.style.left = `${(point.x / 1000) * 100}%`;
+            bulb.style.top = `${point.y}px`;
+            bulb.style.setProperty('--d', `${0.4 + Math.random() * 1.6}s`);
+            
+            container.appendChild(bulb);
+        }
+    }
+
+    // --- Core Startup Triggers ---
+    window.addEventListener('DOMContentLoaded', () => {
+        // Inject missing bulb styles automatically
+        injectFairyLightStyles();
+        
+        // Calculate and position the hanging bulbs along the wire
+        initFairyLights();
+
+        const videoElement = document.getElementById('main-birthday-video');
+        const bdayAudio = document.getElementById('birthday-audio');
+
+        if (videoElement && bdayAudio) {
+            videoElement.addEventListener('play', () => { bdayAudio.pause(); });
+            videoElement.addEventListener('pause', () => {
+                if (document.getElementById('video-page').classList.contains('active')) { bdayAudio.play(); }
+            });
+            videoElement.addEventListener('ended', () => { bdayAudio.play(); });
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        initFairyLights();
+    });
+</script>
+</body>
+</html>
